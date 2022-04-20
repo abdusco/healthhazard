@@ -40,12 +40,8 @@ func main() {
 		terminating = true
 
 		log.Printf("terminating in %v", terminationDelay)
-		t := time.NewTimer(terminationDelay)
-		select {
-		case <-t.C:
-			log.Printf("timeout expired, exiting")
-			done <- true
-		}
+		time.Sleep(terminationDelay)
+		done <- true
 	}()
 
 	e.GET(healthcheckPath, func(c echo.Context) error {
